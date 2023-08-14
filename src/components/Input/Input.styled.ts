@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
     height: 50,
 
     flex: 1,
+
+    fontFamily: 'Rubik-Regular',
+
     backgroundColor: 'white',
 
     borderTopLeftRadius: 8,
