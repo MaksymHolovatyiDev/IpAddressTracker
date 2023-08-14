@@ -7,7 +7,7 @@ import Input from 'components/Input/Input';
 import MainData from 'components/MainData/MainData';
 import Map from 'components/Map/Map';
 import { styles } from 'Screens/MainScreen.styled';
-import MainProvider from 'components/MainProvider/MainProvider';
+import MainProvider from 'components/IPTrackerProvider/IPTrackerProvider';
 
 export default function MainPage() {
   const [fontsLoaded, fontError] = useFonts({

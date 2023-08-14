@@ -3,12 +3,12 @@ import { SvgXml } from 'react-native-svg';
 
 import { locationImg } from '@assets/icons/svg';
 import { styles } from './Map.styled';
-import { useMain } from 'components/MainProvider/MainProvider';
+import { useIPTracker } from 'components/IPTrackerProvider/IPTrackerProvider';
 
 export default function Map() {
   const {
     MainUserData: { lat, lng, location },
-  } = useMain();
+  } = useIPTracker();
 
   return (
     <MapView

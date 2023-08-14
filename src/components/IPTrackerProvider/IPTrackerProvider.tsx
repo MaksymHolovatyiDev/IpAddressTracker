@@ -9,14 +9,14 @@ import publicIP from 'react-native-public-ip';
 
 import { fetchByIp } from 'helpers/fetchByIp';
 import { ContextValue } from 'components/Types';
-import { styles } from './MainProvider.styled';
+import { styles } from './IPTrackerProvider.styled';
 import { ActivityIndicator, View } from 'react-native';
 
-const MainContext = createContext<ContextValue>({} as ContextValue);
+const IPTrackerContext = createContext<ContextValue>({} as ContextValue);
 
-export const useMain = () => useContext(MainContext);
+export const useIPTracker = () => useContext(IPTrackerContext);
 
-const MainProvider = ({ children }: { children: ReactNode }) => {
+const IPTrackerProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -51,7 +51,7 @@ const MainProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <MainContext.Provider value={value}>
+    <IPTrackerContext.Provider value={value}>
       {loaded ? (
         children
       ) : (
@@ -59,8 +59,8 @@ const MainProvider = ({ children }: { children: ReactNode }) => {
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       )}
-    </MainContext.Provider>
+    </IPTrackerContext.Provider>
   );
 };
 
-export default MainProvider;
+export default IPTrackerProvider;

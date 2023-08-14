@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
 import { arrow } from '@assets/icons/svg';
 import { styles } from './Input.styled';
-import { useMain } from 'components/MainProvider/MainProvider';
+import { useIPTracker } from 'components/IPTrackerProvider/IPTrackerProvider';
 
 export default function Input() {
-  const { inputValue, setInputValue, searchByIp, error } = useMain();
+  const { inputValue, setInputValue, searchByIp, error } = useIPTracker();
 
   const findByIp = () => {
     searchByIp(inputValue);
