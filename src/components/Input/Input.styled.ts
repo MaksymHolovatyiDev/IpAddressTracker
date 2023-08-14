@@ -17,6 +17,9 @@ export const styles = StyleSheet.create({
 
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
+    borderLeftWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     paddingLeft: 18,
   },
   btn: {

@@ -1,15 +1,16 @@
-export interface ResSuccess {
+export interface MainDataType {
   ip: string;
-  location: {
-    country: string;
-    city: string;
-    lat: number;
-    lng: number;
-    timezone: string;
-  };
+  location: string;
+  timezone: string;
   isp: string;
+  lat: number;
+  lng: number;
 }
 
-export interface ResError {
-  code: number;
+export interface ContextValue {
+  inputValue: string;
+  setInputValue: (ip: string) => void;
+  MainUserData: MainDataType;
+  searchByIp: (ip: string) => void;
+  error: boolean;
 }

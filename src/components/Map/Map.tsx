@@ -21,15 +21,19 @@ export default function Map() {
         longitudeDelta: 0.0421,
       }}
     >
-      <Marker
-        coordinate={{
-          latitude: lat,
-          longitude: lng,
-        }}
-        description={location}
-      >
-        <SvgXml xml={locationImg} style={{ height: 35, width: 35 }} />
-      </Marker>
+      {lat && lng ? (
+        <Marker
+          coordinate={{
+            latitude: lat,
+            longitude: lng,
+          }}
+          description={location}
+        >
+          <SvgXml xml={locationImg} style={styles.marker} />
+        </Marker>
+      ) : (
+        <></>
+      )}
     </MapView>
   );
 }

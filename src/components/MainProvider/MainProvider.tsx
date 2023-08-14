@@ -7,15 +7,18 @@ import {
 } from 'react';
 import publicIP from 'react-native-public-ip';
 
-interface ContextValue {
-  // type for context value
-}
+import { fetchByIp } from 'helpers/fetchByIp';
+import { ContextValue } from 'components/Types';
+import { styles } from './MainProvider.styled';
+import { ActivityIndicator, View } from 'react-native';
 
 const MainContext = createContext<ContextValue>({} as ContextValue);
 
 export const useMain = () => useContext(MainContext);
 
 const MainProvider = ({ children }: { children: ReactNode }) => {
+  const [error, setError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [MainUserData, setMainUserData] = useState({
     ip: '',
@@ -26,50 +29,38 @@ const MainProvider = ({ children }: { children: ReactNode }) => {
     lng: 0,
   });
 
-  const searchByIp = () => {};
+  const searchByIp = (ip: string) => {
+    fetchByIp(setMainUserData, setLoaded, setError, ip);
+  };
 
   useEffect(() => {
-    let userIp;
     publicIP()
       .then(userIp => {
         setInputValue(userIp);
-        if (userIp)
-          fetch(
-            `https://geo.ipify.org/api/v2/country,city?apiKey=at_womCEDF93LpHVECBVRxUUuKryfceW&ipAddress=${userIp}`
-          )
-            .then(res => {
-              if (!res.ok) throw new Error('Res Error');
-              return res.json();
-            })
-            .then(data => {
-              if (data?.code === 422) throw new Error('Bad request');
-              setMainUserData({
-                ip: data.ip,
-                location: `${data.location.country}, ${data.location.city}`,
-
-                timezone: `UTC ${data.location.timezone}`,
-                isp: data.isp,
-                lat: data.location.lat,
-                lng: data.location.lng,
-              });
-            })
-            .catch(console.log);
+        searchByIp(userIp);
       })
       .catch(console.log);
   }, []);
-
-  // add states here
-
-  //add useEffect here if you need it
 
   const value = {
     inputValue,
     setInputValue,
     MainUserData,
-    //pass all states and anything else that you will need in components
+    searchByIp,
+    error,
   };
 
-  return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
+  return (
+    <MainContext.Provider value={value}>
+      {loaded ? (
+        children
+      ) : (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
+    </MainContext.Provider>
+  );
 };
 
 export default MainProvider;
